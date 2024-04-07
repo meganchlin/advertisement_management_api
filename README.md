@@ -68,7 +68,7 @@ docker run -p 127.0.0.1:27017:27017 -d --rm --name mongo mongo:7.0.5
 
 5. Run the application:
 ```plaintext
-go run main.go
+go run .
 ```
 
 ## Testing
