@@ -46,4 +46,33 @@ Goroutines were utilized to handle concurrent requests efficiently. Each incomin
 
 ## Usage
 
+1. Clone the repository:
+```plaintext
+git clone https://github.com/meganchlin/advertisement_management_api.git
+```
+
+2. Navigate to the project directory:
+```plaintext
+cd advertisement_management_api
+```
+
+3. Install dependencies:
+```plaintext
+go mod download
+```
+
+4. Run MongoDB via Docker:
+```plaintext
+docker run -p 127.0.0.1:27017:27017 -d --rm --name mongo mongo:7.0.5
+```
+
+5. Run the application:
+```plaintext
+go run main.go
+```
+
 ## Testing
+Run Tests: 
+```plaintext
+go test
+```
