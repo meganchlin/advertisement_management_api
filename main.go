@@ -132,7 +132,7 @@ func getAds(c *gin.Context) {
 	cursor, err := dbCol.Find(context.Background(), filter)
 	if err != nil {
 		// Handle error
-		c.IndentedJSON(http.StatusNotFound, gin.H{"error": "database error"})
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": "database error"})
 		return
 	}
 	defer cursor.Close(context.Background())
@@ -147,14 +147,14 @@ func getAds(c *gin.Context) {
 		var ad Advertisement
 		if err := cursor.Decode(&ad); err != nil {
 			// Handle error
-			c.IndentedJSON(http.StatusNotFound, gin.H{"error": "error decoding documents in data type"})
+			c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": "error decoding documents in data type"})
 			return
 		}
 		// Append an ad to displayAds.Items
 		displayAds.Items = append(displayAds.Items, AdItem{Title: ad.Title, EndAt: ad.EndAt})
 	}
 	if err := cursor.Err(); err != nil {
-		c.IndentedJSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		c.IndentedJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 

@@ -22,6 +22,12 @@ func getClient() (*mongo.Client, error) {
 	clientOnce.Do(func() {
 		client, clientErr = connectToMongoDB()
 	})
+
+	// If clientErr is not nil (indicating an error occurred previously), attempt to reconnect
+	if clientErr != nil {
+		client, clientErr = connectToMongoDB()
+	}
+
 	return client, clientErr
 }
 
@@ -38,13 +44,11 @@ func connectToMongoDB() (*mongo.Client, error) {
 		return nil, err
 	}
 
-	/*
-		// Ping the MongoDB server
-		err = client.Ping(context.Background(), nil)
-		if err != nil {
-			return nil, err
-		}
-	*/
+	// Ping the MongoDB server
+	err = client.Ping(context.Background(), nil)
+	if err != nil {
+		return nil, err
+	}
 
 	// Access a database
 	database := client.Database(os.Getenv("DB_NAME"))
