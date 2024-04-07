@@ -72,7 +72,7 @@ go run .
 ```
 
 ## Testing
-Run Tests: 
+Run tests: 
 ```plaintext
 go test
 ```
