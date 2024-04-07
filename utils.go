@@ -92,3 +92,15 @@ func (ad Advertisement) MarshalJSON() ([]byte, error) {
 	// Marshal the map to JSON
 	return json.Marshal(data)
 }
+
+// Customizes the JSON marshalling behavior for the AdItem struct
+func (ad AdItem) MarshalJSON() ([]byte, error) {
+	// Create a map to hold the serialized data
+	data := map[string]interface{}{
+		"title": ad.Title,
+		"endAt": ad.EndAt.Format("2006-01-02T15:04:05.000Z"),
+	}
+
+	// Marshal the map to JSON
+	return json.Marshal(data)
+}

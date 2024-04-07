@@ -151,7 +151,7 @@ func getAds(c *gin.Context) {
 			return
 		}
 		// Append an ad to displayAds.Items
-		displayAds.Items = append(displayAds.Items, AdItem{Title: ad.Title, EndAt: ad.EndAt.Format("2006-01-02T15:04:05.000Z")})
+		displayAds.Items = append(displayAds.Items, AdItem{Title: ad.Title, EndAt: ad.EndAt})
 	}
 	if err := cursor.Err(); err != nil {
 		c.IndentedJSON(http.StatusNotFound, gin.H{"error": err.Error()})
@@ -166,9 +166,7 @@ func getAds(c *gin.Context) {
 
 	// apply pagination
 	sort.Slice(displayAds.Items, func(i, j int) bool {
-		i_end, _ := ParseTime(displayAds.Items[i].EndAt)
-		j_end, _ := ParseTime(displayAds.Items[j].EndAt)
-		return i_end.Before(j_end)
+		return displayAds.Items[i].EndAt.Before(displayAds.Items[j].EndAt)
 	})
 
 	offset, _ := strconv.Atoi(c.Query("offset"))

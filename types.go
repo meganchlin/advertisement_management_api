@@ -51,6 +51,6 @@ type DisplayAds struct {
 
 // AdItem represents data about a record of an ad to be displayed.
 type AdItem struct {
-	Title string `json:"title" bson:"title"`
-	EndAt string `json:"endAt" bson:"endAt"`
+	Title string    `json:"title" bson:"title"`
+	EndAt time.Time `json:"endAt" bson:"endAt"`
 }
